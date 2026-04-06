@@ -39,11 +39,11 @@ The system processes raw CSV ticket data and transforms it into actionable insig
 - Override category classification
 
 ## Key Results (Real Data)
-- Revenue increased from R58,100 → R583,070 (+903.6%)
-- Total analysed revenue: R641,170
+- Revenue increased
+- Total analysed revenue
 - Peak booking time: Evening
 - Top category: Afrosoul
-- Returning audience: 24.1%
+- Returning audience
 
 ## Tech Stack
 - Java (Core + HttpServer)
