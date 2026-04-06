@@ -1,5 +1,4 @@
 # event-analytics-dashboard
-# One Room Analytics System
 
 ## Overview
 This is a full-stack Java-based analytics system built to analyse event performance, audience behaviour, and revenue trends for a live events business.
