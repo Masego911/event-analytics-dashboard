@@ -6,8 +6,12 @@ import java.util.Map;
 /** Preserves the category inference and override rules from the original importer. */
 public final class CategoryResolver {
     public String resolve(String showName, Map<String, String> overrides) {
-        String override = overrides.get(showName.toLowerCase(Locale.ROOT));
+        String override = overrides == null ? null : overrides.get(showName.toLowerCase(Locale.ROOT));
         return override != null ? override : infer(showName);
+    }
+
+    public String resolve(String showName) {
+        return infer(showName);
     }
 
     public String infer(String showName) {
