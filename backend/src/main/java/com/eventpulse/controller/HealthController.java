@@ -1,4 +1,4 @@
-﻿package com.eventpulse.controller;
+package com.eventpulse.controller;
 
 import com.eventpulse.dto.ApiResponse;
 import com.eventpulse.service.HealthService;

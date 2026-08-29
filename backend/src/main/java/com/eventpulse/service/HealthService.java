@@ -1,4 +1,4 @@
-﻿package com.eventpulse.service;
+package com.eventpulse.service;
 
 import org.springframework.stereotype.Service;
 

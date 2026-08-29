@@ -1,4 +1,4 @@
-﻿package com.eventpulse.config;
+package com.eventpulse.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

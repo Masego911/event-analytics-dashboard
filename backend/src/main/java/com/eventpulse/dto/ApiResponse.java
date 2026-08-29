@@ -1,4 +1,4 @@
-﻿package com.eventpulse.dto;
+package com.eventpulse.dto;
 
 /**
  * Standard response object for simple EventPulse API messages.
