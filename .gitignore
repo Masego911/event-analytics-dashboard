@@ -1,3 +1,22 @@
 *.class
 *.log
 *.csv
+
+### IntelliJ IDEA ###
+.idea/
+*.iml
+
+### React / Vite ###
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+### Private event / customer data ###
+*.csv
+excluded_emails.txt
+
+### Environment / secrets ###
+.env
+.env.*
+application-local.properties
+application-local.yml
