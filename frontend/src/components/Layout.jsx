@@ -13,10 +13,10 @@ export default function Layout({ children }) {
     <div className="app-shell">
       <a className="skip-link" href="#main-content">Skip to dashboard content</a>
       <header className="topbar">
-        <Link className="brand" to="/" aria-label="The One Room dashboard">
-          <span className="brand-logo"><img src="/logo" alt="" /></span>
+        <Link className="brand" to="/" aria-label="EventPulse AI dashboard">
+          <span className="brand-mark" aria-hidden="true">EP</span>
           <span>
-            <strong>The One Room</strong>
+            <strong>EventPulse AI</strong>
             <small>Audience intelligence</small>
           </span>
         </Link>
@@ -35,7 +35,7 @@ export default function Layout({ children }) {
       </header>
       <main id="main-content" className="page-shell">{children}</main>
       <footer className="footer">
-        <span>The One Room Music &amp; Comedy Club</span>
+        <span>EventPulse AI</span>
         <span>Audience operations console</span>
       </footer>
     </div>

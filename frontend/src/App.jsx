@@ -35,8 +35,8 @@ function AppRoutes() {
 
   useEffect(() => {
     const title = pageTitles[path]
-      || (path.startsWith('/show') || path.startsWith('/category') || path.startsWith('/contacts') ? 'Contact List' : 'The One Room')
-    document.title = `${title} · The One Room`
+      || (path.startsWith('/show') || path.startsWith('/category') || path.startsWith('/contacts') ? 'Contact List' : 'EventPulse AI')
+    document.title = `${title} · EventPulse AI`
   }, [path])
 
   let page

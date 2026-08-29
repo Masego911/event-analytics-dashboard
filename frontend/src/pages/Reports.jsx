@@ -102,7 +102,7 @@ export default function Reports() {
       const ExcelModule = await import('exceljs')
       const ExcelJS = ExcelModule.default || ExcelModule
       const workbook = new ExcelJS.Workbook()
-      workbook.creator = 'The One Room Audience Intelligence'
+      workbook.creator = 'EventPulse AI Audience Intelligence'
       workbook.created = new Date()
       workbook.properties.date1904 = false
 
@@ -130,7 +130,7 @@ export default function Reports() {
       const url = URL.createObjectURL(blob)
       const anchor = document.createElement('a')
       anchor.href = url
-      anchor.download = `TheOneRoom_Report_${new Date().toISOString().slice(0, 10)}.xlsx`
+      anchor.download = `EventPulseAI_Report_${new Date().toISOString().slice(0, 10)}.xlsx`
       document.body.appendChild(anchor)
       anchor.click()
       anchor.remove()
