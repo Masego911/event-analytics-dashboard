@@ -12,6 +12,9 @@ public class AudienceData {
     private final List<String> showNames =
             new ArrayList<>();
 
+    private final List<String> showCategories =
+            new ArrayList<>();
+
     private final List<List<String>> showEmails =
             new ArrayList<>();
 
@@ -89,6 +92,10 @@ public class AudienceData {
 
     public List<String> getShowNames() {
         return showNames;
+    }
+
+    public List<String> getShowCategories() {
+        return showCategories;
     }
 
     public List<List<String>> getShowEmails() {

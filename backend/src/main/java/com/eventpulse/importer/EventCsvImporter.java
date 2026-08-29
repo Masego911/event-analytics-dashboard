@@ -211,6 +211,9 @@ public class EventCsvImporter {
         data.getShowNames()
                 .add(showName);
 
+        data.getShowCategories()
+                .add(category);
+
         List<String> showEmails =
                 new ArrayList<>();
 

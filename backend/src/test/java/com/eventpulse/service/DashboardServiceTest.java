@@ -1,6 +1,8 @@
 package com.eventpulse.service;
 
 import com.eventpulse.dto.dashboard.DashboardResponse;
+import com.eventpulse.importer.CsvParser;
+import com.eventpulse.importer.EventCsvImporter;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -50,10 +52,7 @@ class DashboardServiceTest {
                 StandardCharsets.UTF_8
         );
 
-        DashboardService service =
-                new DashboardService(
-                        tempDirectory.toString()
-                );
+        DashboardService service = dashboardService();
 
         DashboardResponse response =
                 service.getDashboard();
@@ -116,7 +115,7 @@ class DashboardServiceTest {
         Files.writeString(tempDirectory.resolve("excluded_emails.txt"),
                 "excluded@example.com\n", StandardCharsets.UTF_8);
 
-        DashboardResponse response = new DashboardService(tempDirectory.toString()).getDashboard();
+        DashboardResponse response = dashboardService().getDashboard();
 
         assertEquals(2, response.summary().totalShows());
         assertEquals(3, response.summary().totalTickets());
@@ -129,5 +128,13 @@ class DashboardServiceTest {
         assertEquals(2, response.categories().stream()
                 .filter(category -> category.name().equals("Jazz"))
                 .findFirst().orElseThrow().emailCount());
+    }
+
+    private DashboardService dashboardService() {
+        CsvParser parser = new CsvParser();
+        CategoryService categories = new CategoryService();
+        DataSettingsService settings = new DataSettingsService(parser, categories);
+        EventCsvImporter importer = new EventCsvImporter(tempDirectory.toString(), parser, categories, settings);
+        return new DashboardService(importer);
     }
 }
