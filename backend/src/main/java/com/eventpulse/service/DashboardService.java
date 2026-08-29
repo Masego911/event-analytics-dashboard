@@ -47,6 +47,7 @@ public class DashboardService {
     );
 
     private final Path dataDirectory;
+    private final CategoryResolver categoryResolver;
 
     /**
      * The data directory is configurable so private CSV exports remain
@@ -68,6 +69,7 @@ public class DashboardService {
         this.dataDirectory = Path.of(dataDirectory)
                 .toAbsolutePath()
                 .normalize();
+        this.categoryResolver = new CategoryResolver();
     }
 
 
@@ -629,21 +631,7 @@ public class DashboardService {
             String showName,
             Map<String, String> overrides
     ) {
-
-        String override =
-                overrides.get(
-                        showName.toLowerCase(
-                                Locale.ROOT
-                        )
-                );
-
-        if (override != null) {
-            return override;
-        }
-
-        return guessCategory(
-                showName
-        );
+        return categoryResolver.resolve(showName, overrides);
     }
 
 
