@@ -29,7 +29,7 @@ import java.util.Set;
  * Builds the data required by the EventPulse audience dashboard.
  *
  * This service is the first extraction of real business behaviour
- * from the legacy TicketBuyerWebApp class.
+ * from the pre-migration server.
  *
  * It deliberately preserves the current React API contract while
  * moving processing out of the HTTP layer.
@@ -648,7 +648,7 @@ public class DashboardService {
 
 
     /**
-     * Existing category rules migrated from TicketBuyerWebApp.
+     * Existing category rules retained for dashboard compatibility.
      */
     private String guessCategory(
             String showName
