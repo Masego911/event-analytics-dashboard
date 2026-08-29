@@ -5,13 +5,15 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CsvParserTest {
+    private final CsvParser parser = new CsvParser();
+
     @Test
     void parsesQuotedCommaAndDetectsSemicolon() {
-        assertEquals(',', CsvParser.detectDelimiter("Name,Email,Phone"));
+        assertEquals(',', parser.detectDelimiter("Name,Email,Phone"));
         assertEquals(List.of("A, B", "person@example.com", "082"),
-                CsvParser.parse("\"A, B\",person@example.com,082", ','));
-        assertEquals(';', CsvParser.detectDelimiter("Name;Email;Phone"));
+                parser.parseLine("\"A, B\",person@example.com,082", ','));
+        assertEquals(';', parser.detectDelimiter("Name;Email;Phone"));
         assertEquals(List.of("A;B", "person@example.com"),
-                CsvParser.parse("\"A;B\";person@example.com", ';'));
+                parser.parseLine("\"A;B\";person@example.com", ';'));
     }
 }
