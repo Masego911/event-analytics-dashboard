@@ -1,9 +1,12 @@
 package com.eventpulse.service;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Locale;
 import java.util.Map;
 
 /** Preserves the category inference and override rules from the original importer. */
+@Component
 public final class CategoryResolver {
     public String resolve(String showName, Map<String, String> overrides) {
         String override = overrides == null ? null : overrides.get(showName.toLowerCase(Locale.ROOT));
