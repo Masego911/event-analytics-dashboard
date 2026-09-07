@@ -1,963 +1,977 @@
-# Event Intelligence Platform
+# EventIntelligence
 
-> **Transforming event data into audience intelligence for South Africa's live entertainment industry.**
+> A data analysis and audience intelligence tool built from real-world live event data.
 
-![Java](https://img.shields.io/badge/Java-21-orange)
-![Spring Boot](https://img.shields.io/badge/Spring_Boot-In_Development-success)
+![Java](https://img.shields.io/badge/Java-Current-orange)
+![Data Analysis](https://img.shields.io/badge/Data-Analysis-blue)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-Planned-success)
+![SQL](https://img.shields.io/badge/SQL_Database-Planned-red)
+![Python](https://img.shields.io/badge/Python-Planned-3776AB)
+![Pandas](https://img.shields.io/badge/Pandas-Planned-150458)
+![Power BI](https://img.shields.io/badge/Power_BI-Planned-F2C811)
 ![React](https://img.shields.io/badge/React-Planned-61DAFB)
-![SQL Server](https://img.shields.io/badge/SQL_Server-Planned-red)
-![Status](https://img.shields.io/badge/Status-Active-blue)
 
 ---
 
-# Overview
+## What is EventIntelligence?
 
-The **Event Intelligence Platform** is a production-oriented software engineering project that explores how modern software engineering, data engineering, computational analytics, business intelligence, and artificial intelligence can support better decision-making within South Africa's live entertainment industry.
+**EventIntelligence is a data analysis project built around real-world event and audience data from South Africa's live entertainment industry.**
 
-The platform transforms fragmented ticketing, customer, and event data into actionable audience intelligence that enables venues, promoters, festivals, and event organisers to better understand their audiences, improve customer engagement, optimise marketing campaigns, evaluate event performance, and make evidence-based business decisions.
+The project started with a practical problem I encountered while working in live event operations.
 
-Rather than replacing existing ticketing platforms, the Event Intelligence Platform complements them by transforming operational data into meaningful business intelligence.
+Ticketing platforms could tell us how many tickets had been sold for an individual event, but I regularly needed answers that went beyond individual ticket sales:
 
-Originally developed as a simple internal operational tool, the project has gradually evolved into a much broader software engineering initiative that combines business analysis, data engineering, graph analytics, optimisation algorithms, statistical computing, and modern software architecture.
+- Who are our customers?
+- Which customers keep returning?
+- Which shows share the same audiences?
+- Which genres have overlapping audiences?
+- Which customers attend multiple types of events?
+- Which events bring new people into the venue?
+- Which audiences should be targeted for a particular campaign?
+- How is our audience changing over time?
+- Which events contribute most to audience retention?
+- What does the data tell us about the performance of the business?
 
----
+The information required to answer these questions existed, but much of it was distributed across separate CSV exports from individual events.
 
-# Industry Context
+EventIntelligence grew from an attempt to make that data useful.
 
-South Africa has one of the most vibrant and culturally diverse live entertainment industries in Africa.
+It is therefore not simply a dashboard project.
 
-The industry encompasses:
-
-* Music festivals
-* Comedy shows
-* Theatre productions
-* Cultural festivals
-* Community events
-* Corporate entertainment
-* International touring productions
-
-Large festivals such as the Klein Karoo Nasionale Kunstefees (KKNK), MACUFE, and the Cape Town International Jazz Festival contribute significantly to cultural development, tourism, and regional economies. At the same time, smaller independent venues continue to play an important role in developing emerging artists, supporting local creative industries, and providing regular live entertainment.
-
-The industry has undergone significant transformation due to:
-
-* changing audience behaviour
-* economic pressures
-* increasing operational costs
-* post-pandemic recovery
-* digital ticketing platforms
-* growing competition for audience attention
-* increasing international touring activity
-
-Although ticketing systems successfully manage ticket sales, many venues and promoters still rely on spreadsheets, exported CSV files, and disconnected software systems to understand customer behaviour and evaluate business performance.
-
-As a result, valuable operational data often remains underutilised.
+It is an evolving **data analysis, software engineering and decision-support project** built around a real operational dataset and a real business problem.
 
 ---
 
-# How This Project Started
+# The Story Behind the Project
 
-This project did **not** begin as a software engineering portfolio project.
+I worked in event and artist relations at **The One Room Music & Comedy Club**, an independent live entertainment venue in Gqeberha, South Africa.
 
-It began while working in live event operations at **The One Room Music & Comedy Club**.
+My work involved event operations, artist relations, audience engagement, marketing, media coordination and reporting.
 
-As part of my responsibilities in:
+Part of that work involved dealing with ticketing data.
 
-* event operations
-* artist relations
-* audience engagement
-* marketing
-* media coordination
+Each event generated its own customer records.
 
-I regularly worked with ticketing exports containing thousands of customer records.
+Over time, this meant working with data from many different events including:
 
-One of the most repetitive operational tasks involved extracting customer phone numbers and email addresses from multiple CSV files in order to prepare targeted marketing campaigns for upcoming shows.
+- jazz
+- comedy
+- Afro-soul
+- hip-hop
+- live music
+- mixed-format events
 
-The existing workflow involved:
+Initially, my problem was simple.
 
-* opening multiple ticketing exports
-* manually combining spreadsheets
-* removing duplicate customers
-* filtering previous attendees
-* organising contact lists by event
-* exporting customer information for email and SMS campaigns
+I needed a faster way to extract customer email addresses and telephone numbers from multiple ticketing exports.
 
-As the venue continued to grow, so did the questions that management wanted answered.
+The manual process involved repeatedly opening CSV files, identifying customers, removing duplicates and creating communication lists.
 
-Instead of simply extracting customer contact details, discussions increasingly focused on understanding the business itself.
+So I built a Java program to automate that process.
 
-Questions included:
+But once the data from different events could be processed together, a much more interesting question emerged:
 
-* Which events attract repeat audiences?
-* Which artists introduce customers to new genres?
-* Which event categories generate the strongest customer retention?
-* Which audiences regularly attend comedy events?
-* Which customers have stopped attending events?
-* Which shows create crossover between audience communities?
-* Which events generate the strongest long-term customer engagement?
-* Which audiences should receive future marketing campaigns?
+> **What else can this data tell us?**
 
-The original contact extraction utility gradually evolved into an audience analytics system.
-
-As my own understanding of software engineering, algorithms, business analysis, and data engineering continued to develop, the project evolved even further into what is now the **Event Intelligence Platform**.
-
-Today the project is no longer simply about analysing historical event data.
-
-Its long-term goal is to become a production-grade decision-support platform for South Africa's live entertainment industry.
+That question changed the direction of the project.
 
 ---
 
-# Problem Statement
+# From Contact Extraction to Data Analysis
 
-Independent venues and event organisers generate large volumes of operational data through ticket sales, customer registrations, event attendance, marketing campaigns, and audience engagement.
+The original utility began evolving into an audience analytics application.
 
-However, this information is frequently distributed across:
+Instead of only asking:
 
-* ticketing exports
-* spreadsheets
-* CSV files
-* email marketing platforms
-* operational records
+> "Give me the email addresses from this event."
 
-This fragmented approach makes it difficult to:
+I could begin asking:
 
-* understand customer behaviour
-* identify audience segments
-* evaluate customer retention
-* measure marketing effectiveness
-* compare event performance
-* support strategic programming decisions
-* generate targeted communication lists
+> "How many of these people have attended before?"
 
-Without integrated audience intelligence, organisations often spend significant time manually preparing reports and extracting customer information rather than using the data to support strategic decision-making.
+Then:
 
----
+> "What other events did they attend?"
 
-# Vision
+Then:
 
-To build a production-grade Event Intelligence Platform that empowers South African venues, promoters, festivals, and event organisers to transform operational event data into actionable audience intelligence through customer segmentation, communications management, event analytics, computational intelligence, and decision-support systems.
+> "Which events have similar audiences?"
 
-The long-term vision is to develop a scalable software platform integrating software engineering, business intelligence, graph analytics, optimisation algorithms, statistical computing, cloud technologies, and artificial intelligence to strengthen audience development and improve the sustainability of South Africa's live entertainment ecosystem.
+Then:
 
----
+> "Which genres share audiences?"
 
-# Research Foundation
+And eventually:
 
-The vision and long-term direction of this project are informed by research into South Africa's live entertainment industry, event management, audience development, cultural festivals, and computational decision-support systems.
+> "What patterns exist across the entire event portfolio?"
 
-The project draws inspiration from literature examining:
+This is how EventIntelligence developed.
 
-* the strategic importance of festivals and cultural events
-* the economic contribution of the South African events industry
-* technology adoption within event management
-* audience development
-* cultural sustainability
-* business intelligence
-* computational analytics
-* data-driven decision-making
+The project now explores how raw operational event data can be transformed into useful information through:
 
-In addition to academic literature, the project is heavily influenced by real operational experience gained while managing live events and audience engagement within an independent South African venue.
-
-This combination of industry research and practical operational experience provides the foundation for the software engineering decisions made throughout the project.
+- data cleaning
+- data transformation
+- aggregation
+- descriptive analytics
+- customer segmentation
+- retention analysis
+- statistical analysis
+- graph analysis
+- algorithmic optimisation
+- business intelligence
 
 ---
 
-# Core Objectives
+# The Data
 
-The Event Intelligence Platform is designed around six core objectives.
+The project was developed using **real operational event data**.
 
-## Audience Intelligence
+The source data consists primarily of CSV exports associated with individual events.
 
-Understand customer behaviour through audience analytics, customer retention analysis, attendance history, and behavioural trends.
+These records contain information required to analyse areas such as:
 
-## Customer Communications
+- event attendance
+- customer participation
+- booking behaviour
+- ticket quantities
+- customer contact information
+- event categories
+- repeat attendance
+- audience relationships
 
-Generate targeted communication lists by extracting customer email addresses and phone numbers based on:
+Because this repository is public, the original operational data is **not included**.
 
-* event attendance
-* event categories
-* customer behaviour
-* audience segments
-* historical attendance
-
-## Business Intelligence
-
-Provide analytical dashboards supporting:
-
-* ticket sales
-* attendance
-* customer growth
-* event performance
-* venue performance
-* revenue analysis
-
-## Event Intelligence
-
-Use computational analytics to understand:
-
-* audience overlap
-* event similarity
-* customer relationships
-* community structures
-* audience movement between events
-
-## Decision Support
-
-Provide evidence-based insights supporting:
-
-* marketing strategy
-* event programming
-* customer engagement
-* audience development
-* operational planning
-
-## Predictive Analytics
-
-Future versions will introduce machine learning capabilities including:
-
-* attendance forecasting
-* ticket demand prediction
-* recommendation systems
-* customer churn prediction
-* behavioural modelling
-
----
-
-# Current Features
-
-The current prototype includes:
-
-* Customer contact extraction
-* CSV processing
-* Audience segmentation
-* Event analytics
-* Customer analytics
-* Graph-based audience modelling
-* Statistical analysis
-* Retention analysis
-* Audience overlap detection
-* Community detection
-* Dynamic programming algorithms
-* Greedy optimisation algorithms
-* Interactive analytics dashboard
-
----
-
-# Research References
-
-The long-term vision of this project has been informed by the following publications:
-
-1. **Events and Festivals as Strategic Tools for Understanding and Assessing the Symbolic Reconfiguration of the World Urban System.**
-   Urban Science.
-
-2. **The Event Management Industry in South Africa and the Impact of Technology and Geopolitical Shifts.**
-   Who Owns Whom.
-
-3. **Song Lines: Mapping the South African Live Music Landscape.**
-   Concerts SA.
-
-4. **North-West University Research Repository**
-   Research relating to South African event management, festivals, tourism, and cultural development.
-
-These publications provide important context regarding:
-
-* the South African live entertainment ecosystem
-* audience development
-* cultural festivals
-* event sustainability
-* technology adoption
-* business intelligence
-* strategic event management
-
-As the platform evolves, future software engineering decisions, analytics modules, and system architecture will continue to be informed by both academic research and operational experience.
-
----
-
-# System Capabilities
-
-The Event Intelligence Platform is designed to support the complete lifecycle of audience intelligence, customer communications, event analytics, and business decision-making.
-
-Rather than functioning as a ticketing platform, the system complements existing ticketing solutions by transforming operational data into actionable business intelligence.
-
-The current prototype demonstrates the computational foundation of the platform, while future development focuses on evolving the system into a scalable, production-grade software platform.
-
----
-
-# Core Functional Areas
-
-## Customer Intelligence
-
-The platform provides analytical tools for understanding customer behaviour across multiple events.
-
-Current capabilities include:
-
-* Customer attendance analysis
-* Repeat customer identification
-* Audience retention analysis
-* Customer participation history
-* Event attendance tracking
-* Customer segmentation
-* Audience overlap detection
-* Demographic estimation
-* Behavioural analytics
-
-These capabilities allow organisers to better understand who attends events, how audiences evolve over time, and which customers contribute most to long-term venue sustainability.
-
----
-
-## Event Intelligence
-
-The platform analyses relationships between events rather than treating each event independently.
-
-Current analytical capabilities include:
-
-* Event similarity analysis
-* Audience crossover analysis
-* Event performance comparison
-* Event influence measurement
-* Audience relationship modelling
-* Community detection
-* Attendance trend analysis
-* Event connectivity analysis
-
-These analyses support programming decisions by identifying relationships that are difficult to detect using traditional reporting methods.
-
----
-
-## Customer Communications
-
-One of the primary motivations behind this project was simplifying customer communications.
-
-The platform assists marketing teams by generating targeted customer communication lists based on operational data.
-
-Current and planned capabilities include:
-
-* Email extraction
-* Phone number extraction
-* Duplicate removal
-* Audience segmentation
-* Event-specific mailing lists
-* Category-specific customer lists
-* Customer filtering
-* Export-ready communication datasets
-
-Future versions will support integration with email marketing and messaging platforms to automate campaign preparation.
-
----
-
-## Business Intelligence
-
-The platform transforms operational data into meaningful business information through analytical reporting.
-
-Business intelligence capabilities include:
-
-* Event performance analysis
-* Attendance reporting
-* Customer growth analysis
-* Audience retention reporting
-* Category performance
-* Revenue trend analysis
-* Operational dashboards
-* Historical comparisons
-
-The objective is to replace spreadsheet-based reporting with interactive decision-support tools.
-
----
-
-# Computational Analytics
-
-Unlike traditional event management systems, the Event Intelligence Platform incorporates computational methods to discover patterns that are difficult to identify through conventional reporting.
-
-The project combines concepts from multiple computer science disciplines.
-
----
-
-## Graph Analytics
-
-Graph theory is used to model relationships between customers and events.
-
-Current graph-based analyses include:
-
-* Bipartite graph construction
-* Audience relationship modelling
-* Event similarity analysis
-* Community detection
-* Connected component analysis
-* Breadth-First Search (BFS)
-* Degree centrality
-* Bridgeness analysis
-
-These algorithms help identify hidden relationships between audiences and events, supporting programming and marketing decisions.
-
----
-
-## Statistical Computing
-
-Statistical methods are applied to evaluate event performance and customer behaviour.
-
-Current analyses include:
-
-* Pearson Correlation
-* Chi-Squared Analysis
-* Moving Average Analysis
-* Z-Score Outlier Detection
-* Cohort Retention Analysis
-
-These methods provide quantitative evidence for operational decision-making.
-
----
-
-## Optimisation Algorithms
-
-The platform incorporates optimisation techniques to explore strategic planning scenarios.
-
-Current implementations include:
-
-### Greedy Algorithms
-
-* Set Cover Approximation
-* Category Reach Optimisation
-
-Potential applications include:
-
-* marketing optimisation
-* audience expansion
-* campaign planning
-* programming strategy
-
-### Dynamic Programming
-
-Current implementations include:
-
-* 0/1 Knapsack Optimisation
-* Longest Common Subsequence (LCS)
-
-These algorithms demonstrate how optimisation techniques can support event selection and behavioural analysis.
-
----
-
-# Current Technology Stack
-
-| Category                | Technology                 |
-| ----------------------- | -------------------------- |
-| Programming Language    | Java                       |
-| User Interface          | JavaFX                     |
-| Data Storage            | CSV Files                  |
-| Collections             | Java Collections Framework |
-| Development Environment | IntelliJ IDEA              |
-| Version Control         | Git & GitHub               |
-
----
-
-# Computer Science Concepts Demonstrated
-
-This project demonstrates practical applications of:
-
-## Software Engineering
-
-* Object-Oriented Programming
-* Modular Design
-* Separation of Concerns
-* Event-Driven Programming
-* Software Architecture
-* Data Processing Pipelines
-
----
-
-## Data Structures
-
-The current implementation makes extensive use of:
-
-* ArrayList
-* HashSet
-* LinkedHashMap
-* LinkedHashSet
-* Queue
-* LinkedList
-* Two-Dimensional Arrays
-* Graph Adjacency Structures
-
-Each data structure was selected based on the computational characteristics required by different analytical operations.
-
----
-
-## Algorithms
-
-The project demonstrates practical implementation of:
-
-* Graph Algorithms
-* Search Algorithms
-* Statistical Algorithms
-* Greedy Algorithms
-* Dynamic Programming
-* Data Cleaning Algorithms
-* Similarity Analysis
-* Audience Segmentation Techniques
-
----
-
-# Current System Architecture
-
-The existing application is implemented as a standalone Java application.
+The real dataset is stored locally under:
 
 ```text
-CSV Files
-      │
-      ▼
-TicketBuyerWebApp
-      │
- ┌────┼───────────────────────────────────────────┐
- │    │                                           │
- ▼    ▼                                           ▼
-Data Processing                          Computational Analytics
- │    │                                           │
- ▼    ▼                                           ▼
-Customer Analysis                 Graph & Statistical Analysis
- │    │                                           │
- └────┼───────────────────────────────────────────┘
-      ▼
-HTML Dashboard
-      │
-      ▼
-Web Browser
+app_data/
 ```
 
-Although this architecture successfully demonstrates the computational capabilities of the platform, it has grown organically as new operational requirements emerged.
+and is explicitly excluded through `.gitignore`.
 
-The next phase of development focuses on evolving this prototype into a layered, production-grade architecture that separates business logic, data access, analytics, presentation, and security into independent components.
+This protects private customer and operational information.
+
+A synthetic demonstration dataset will be introduced later so that the complete analytical workflow can be demonstrated publicly without exposing real customer data.
 
 ---
 
-# Planned Software Engineering Architecture
+# Current Project
 
-The future platform will be rebuilt using modern software engineering principles.
+The current implementation is a working **Java prototype**.
 
 ```text
-                External Data Sources
-                         │
-                         ▼
-                  ETL & Data Validation
-                         │
-                         ▼
-                  SQL Server Database
-                         │
-     ┌───────────────────┼───────────────────┐
-     ▼                   ▼                   ▼
-Customer Service     Event Service     Analytics Service
-     │                   │                   │
-     └───────────────────┼───────────────────┘
-                         ▼
-                    REST API Layer
-                         │
-                         ▼
-                   React Frontend
-                         │
-      ┌──────────────────┼──────────────────┐
-      ▼                  ▼                  ▼
-Audience Dashboard   Communications   Decision Support
-```
-
-This redesign will improve:
-
-* maintainability
-* scalability
-* modularity
-* performance
-* testing
-* security
-* cloud deployment
-* long-term extensibility
-
-while preserving the computational capabilities developed throughout the original prototype.
-
----
-
-# Engineering Philosophy
-
-The Event Intelligence Platform is intentionally being redeveloped using a software engineering-first approach.
-
-Every stage of development follows the Software Development Life Cycle (SDLC):
-
-1. Business Analysis
-2. Requirements Engineering
-3. Domain Modelling
-4. Database Design
-5. Backend Engineering
-6. Frontend Engineering
-7. Testing
-8. Deployment
-9. Operations
-10. Continuous Improvement
-
-Rather than simply implementing technologies, each architectural decision is justified through business requirements, engineering principles, and operational experience gained within South Africa's live entertainment industry.
-
-The long-term objective is not only to build a production-grade Event Intelligence Platform, but also to document the complete engineering journey from an experimental operational prototype to a scalable enterprise software system.
-
-
-# Future Roadmap
-
-The current implementation demonstrates the computational foundation of the Event Intelligence Platform. The next phase of development focuses on redesigning the prototype using modern software engineering principles to create a scalable, secure, cloud-ready enterprise application.
-
-Development follows an incremental approach where every phase builds upon the previous one.
-
----
-
-# Phase 1 — Business Analysis & Requirements Engineering
-
-The project begins by understanding the business before writing code.
-
-Deliverables include:
-
-* Project Charter
-* Business Domain Analysis
-* Stakeholder Analysis
-* Software Requirements Specification (SRS)
-* User Stories
-* Use Cases
-* Business Rules
-* Domain Model
-* Architecture Decision Records (ADRs)
-
-The objective is to ensure that every engineering decision is directly traceable to a genuine business requirement.
-
----
-
-# Phase 2 — Data Engineering
-
-The platform is built using real operational event data rather than synthetic datasets.
-
-Development focuses on:
-
-* Data profiling
-* Data quality assessment
-* Duplicate detection
-* Missing value analysis
-* Data validation
-* Data standardisation
-* ETL pipeline development
-* Data transformation
-* Import automation
-
-The objective is to establish reliable, high-quality datasets before analytical processing begins.
-
----
-
-# Phase 3 — Database Engineering
-
-The current CSV-based implementation will be migrated to a relational database designed using software engineering and database design best practices.
-
-Topics include:
-
-* Entity Relationship Modelling (ERD)
-* Normalisation
-* Primary Keys
-* Foreign Keys
-* Constraints
-* Indexing
-* Query Optimisation
-* Views
-* Transactions
-* Stored Procedures
-
-Microsoft SQL Server has been selected as the primary database platform for future development.
-
----
-
-# Phase 4 — Backend Engineering
-
-The application will be rebuilt using Spring Boot.
-
-The backend architecture will adopt a layered architecture consisting of:
-
-```text
-config/
-controller/
-dto/
-exception/
-mapper/
-model/
-repository/
-security/
-service/
-util/
-```
-
-Core backend functionality will include:
-
-* REST APIs
-* Authentication
-* Authorisation
-* Validation
-* Exception Handling
-* Dependency Injection
-* Service Layer
-* Repository Layer
-* API Documentation
-
----
-
-# Phase 5 — Frontend Engineering
-
-The current JavaFX interface will be replaced with a modern React frontend.
-
-Planned features include:
-
-* Interactive dashboards
-* Customer search
-* Audience segmentation
-* Communication management
-* Event analytics
-* Reporting
-* Charts and visualisations
-* Responsive user interface
-* Dark mode
-* Accessibility improvements
-
----
-
-# Phase 6 — Security
-
-Security will become a first-class architectural concern.
-
-Planned security features include:
-
-* Spring Security
-* JWT Authentication
-* Role-Based Access Control
-* Password Encryption
-* API Security
-* Secure Configuration
-* Input Validation
-* SQL Injection Protection
-* Cross-Site Request Forgery Protection
-* Secure Session Management
-
----
-
-# Phase 7 — DevOps
-
-The platform will adopt modern DevOps practices.
-
-Planned technologies include:
-
-* Git
-* GitHub
-* Docker
-* Docker Compose
-* Linux
-* Nginx
-* GitHub Actions
-* Continuous Integration
-* Continuous Deployment
-
----
-
-# Phase 8 — Cloud Deployment
-
-Future deployment targets include cloud infrastructure capable of supporting production workloads.
-
-Topics include:
-
-* Virtual Machines
-* Reverse Proxy
-* HTTPS
-* Environment Variables
-* Domain Configuration
-* Monitoring
-* Logging
-* Backups
-* Scaling
-* High Availability
-
----
-
-# Phase 9 — Artificial Intelligence
-
-Once descriptive analytics are complete, the platform will introduce predictive analytics and machine learning.
-
-Future capabilities include:
-
-## Customer Intelligence
-
-* Customer clustering
-* Customer lifetime value prediction
-* Churn prediction
-* Behavioural profiling
-
----
-
-## Event Intelligence
-
-* Attendance forecasting
-* Ticket demand prediction
-* Revenue forecasting
-* Event recommendation
-
----
-
-## Marketing Intelligence
-
-* Audience recommendation
-* Campaign optimisation
-* Customer targeting
-* Personalised recommendations
-
----
-
-# Planned Modules
-
-The long-term platform will consist of multiple integrated modules.
-
-```text
-Event Intelligence Platform
-
-├── Customer Management
-├── Event Management
-├── Audience Intelligence
-├── Communications
-├── Marketing Intelligence
-├── Business Intelligence
-├── Analytics Engine
-├── Reporting
-├── Administration
-├── Data Import (ETL)
-├── Machine Learning
-└── System Administration
-```
-
----
-
-# Repository Structure
-
-```
-event-intelligence-platform/
-
-├── backend/
-│   ├── src/
-│   ├── pom.xml
-│   └── Dockerfile
+EventIntelligence/
 │
-├── frontend/
-│   ├── src/
-│   ├── public/
-│   └── package.json
+├── src/
+│   ├── Main.java
+│   └── TicketBuyerWebApp.java
 │
-├── database/
-│   ├── schema/
-│   ├── scripts/
-│   ├── views/
-│   └── seed-data/
+├── app_data/
+│   └── private operational data
 │
-├── data/
-│   ├── raw/
-│   ├── processed/
-│   └── reference/
-│
-├── docs/
-│   ├── 01_Project_Charter.md
-│   ├── 02_Business_Domain_Analysis.md
-│   ├── 03_Software_Requirements_Specification.md
-│   ├── 04_User_Stories.md
-│   ├── 05_Use_Cases.md
-│   ├── 06_Domain_Model.md
-│   ├── 07_ERD.md
-│   ├── 08_Database_Design.md
-│   ├── 09_API_Design.md
-│   ├── 10_Security.md
-│   ├── 11_Testing_Strategy.md
-│   ├── 12_Deployment_Guide.md
-│   ├── 13_Operations_Guide.md
-│   ├── 14_Architecture_Decision_Records.md
-│   ├── 15_Learning_Journal.md
-│   └── 16_Retrospectives.md
-│
-├── research/
-│
-├── screenshots/
-│
-├── .github/
-│
-├── docker/
-│
+├── .gitignore
 └── README.md
 ```
 
----
+The current application uses:
 
-# Research References
+- Java
+- Java Collections Framework
+- CSV files
+- Java's embedded HTTP server
+- server-generated HTML/CSS/JavaScript
+- browser-based analytical views
 
-The long-term direction of the Event Intelligence Platform is informed by operational experience together with research into South Africa's live entertainment industry, event management, audience development, and computational analytics.
+Most of the application currently resides in `TicketBuyerWebApp.java`.
 
-Current reference material includes:
+This is intentional historical context rather than the desired final architecture.
 
-1. **Events and Festivals as Strategic Tools for Understanding and Assessing the Symbolic Reconfiguration of the World Urban System.** *Urban Science.*
+The program grew organically as I added new analytical questions and features.
 
-2. **The Event Management Industry in South Africa and the Impact of Technology and Geopolitical Shifts.** *Who Owns Whom.*
-
-3. **Song Lines: Mapping the South African Live Music Landscape.** *Concerts SA.*
-
-4. **North-West University Repository** – Research relating to South African festivals, event management, tourism, and cultural development.
-
-These publications provide important context regarding:
-
-* cultural festivals
-* audience development
-* event sustainability
-* digital transformation
-* event economics
-* strategic planning
-* technology adoption
-* business intelligence
-
-Future versions of the platform will continue to incorporate research findings into system requirements, software architecture, analytics modules, and machine learning capabilities.
+One of the next major engineering objectives is therefore to break this monolithic implementation into properly separated application components.
 
 ---
 
-# Contributing
+# Current Data Pipeline
 
-The Event Intelligence Platform is currently an active software engineering project undergoing a complete architectural redesign.
+The existing application effectively performs a small data-processing pipeline.
 
-Contributions, discussions, feature suggestions, and constructive feedback are welcome.
+```text
+Real Event CSV Files
+        |
+        v
+   Data Ingestion
+        |
+        v
+ Cleaning & Validation
+        |
+        v
+   Normalisation
+        |
+        v
+ Deduplication
+        |
+        v
+ Event / Customer Mapping
+        |
+        v
+ Analytical Processing
+        |
+        +--------------------+
+        |                    |
+        v                    v
+Descriptive Analysis   Computational Analysis
+        |                    |
+        +----------+---------+
+                   |
+                   v
+          Audience Intelligence
+                   |
+                   v
+          Browser Dashboard
+```
 
-Future contribution guidelines will include:
-
-* coding standards
-* branching strategy
-* pull request process
-* issue templates
-* architectural guidelines
-* testing requirements
-* documentation standards
+This pipeline is one of the reasons I now consider EventIntelligence primarily a **data analysis system supported by software engineering**, rather than simply an event-management application.
 
 ---
 
-# Project Status
+# Data Cleaning and Preparation
 
-**Current Status:** Active Development
+Before meaningful analysis can take place, the application has to deal with real-world data quality problems.
 
-The current Java prototype is being redesigned into a production-grade Event Intelligence Platform following modern software engineering practices.
+The Java implementation performs processing including:
 
-Current focus areas include:
+- reading multiple CSV files
+- combining event records
+- extracting customer information
+- normalising email addresses
+- processing telephone numbers
+- removing duplicate records
+- handling exclusions
+- assigning event categories
+- creating event/customer relationships
+- aggregating attendance information
 
-* Business Analysis
-* Requirements Engineering
-* Domain Modelling
-* Database Design
-* Software Architecture
-* Spring Boot Development
-* React Frontend
-* SQL Server Integration
+This part of the project has been particularly important because real operational data is rarely analysis-ready.
+
+A significant lesson from the project has been that useful analytics depends on reliable data preparation.
 
 ---
 
-# Acknowledgements
+# Current Analytics
 
-This project has been shaped by three complementary sources of knowledge:
+## Descriptive Analytics
 
-* practical operational experience within South Africa's live entertainment industry
-* academic research into event management, audience development, and computational analytics
-* continuous learning in software engineering, data engineering, algorithms, and artificial intelligence
+The application calculates information such as:
 
-Special acknowledgement is given to **The One Room Music & Comedy Club**, whose operational environment provided the real-world challenges, datasets, and inspiration that led to the creation of this project.
+- unique customers
+- event attendance
+- repeat attendance
+- customer participation frequency
+- event-level audience size
+- category-level audience size
+- ticket quantities
+- returning audiences
+- audience retention
+
+These metrics help answer:
+
+> **What happened?**
+
+---
+
+## Audience Analysis
+
+EventIntelligence creates a consolidated view of customer behaviour across multiple events.
+
+This makes it possible to analyse:
+
+- once-off customers
+- repeat customers
+- highly engaged customers
+- customers attending multiple events
+- cross-category customers
+- returning audiences
+- customer attendance histories
+
+Instead of treating every ticket purchase as an isolated transaction, the application attempts to understand the **customer relationship across time and events**.
+
+---
+
+# Graph Analytics
+
+Some of the most interesting questions in the dataset concern relationships.
+
+A customer can attend many events.
+
+An event can have many customers.
+
+This naturally forms a graph.
+
+EventIntelligence uses graph-oriented analysis to explore these relationships.
+
+Current implementations include:
+
+- customer-to-event relationships
+- event-to-event audience relationships
+- connected components
+- Breadth-First Search
+- degree-based analysis
+- event similarity
+- audience crossover
+- cross-genre audiences
+- bridgeness analysis
+
+---
+
+## Event Similarity
+
+Two events can be compared according to how much of their audience they share.
+
+The application uses **Jaccard similarity**:
+
+```text
+J(A,B) = |A ∩ B| / |A ∪ B|
+```
+
+where:
+
+- `A` = audience of event A
+- `B` = audience of event B
+
+This provides a way of asking:
+
+> Which events attract similar groups of people?
+
+This has practical applications for programming, customer segmentation and marketing.
+
+---
+
+# Statistical Analysis
+
+The Java prototype also contains statistical analysis methods.
+
+Current implementations include:
+
+### Pearson Correlation
+
+Used to examine relationships between numerical variables.
+
+### Chi-Square Analysis
+
+Used to investigate distributions within event and booking data.
+
+### Moving Averages
+
+Used to examine changes and trends across sequential observations.
+
+### Z-Score Outlier Detection
+
+Used to identify unusually high or low observations.
+
+### Cohort / Retention Analysis
+
+Used to examine whether audiences return after their initial interaction with the event portfolio.
+
+These methods move the project beyond basic totals and counts toward **diagnostic and exploratory data analysis**.
+
+---
+
+# Optimisation Algorithms
+
+The project also explores how algorithms can support decision-making.
+
+## Greedy Set Cover
+
+A greedy set-cover approximation is used to explore audience reach.
+
+The underlying question is:
+
+> If I can only select a limited number of events or audience groups, which selections collectively give me the greatest reach?
+
+This has potential applications in:
+
+- marketing
+- campaign planning
+- audience development
+- event programming
+
+---
+
+## Dynamic Programming
+
+The application contains implementations of:
+
+- 0/1 Knapsack
+- Longest Common Subsequence
+
+These were introduced while exploring how computer science algorithms could be connected to genuine event-management and audience-analysis problems rather than existing only as classroom exercises.
+
+---
+
+# Why This Is a Data Analysis Project
+
+EventIntelligence follows the basic lifecycle of a data analysis problem:
+
+```text
+Business Problem
+       |
+       v
+Data Collection
+       |
+       v
+Data Cleaning
+       |
+       v
+Data Transformation
+       |
+       v
+Exploratory Analysis
+       |
+       v
+Descriptive Analytics
+       |
+       v
+Diagnostic Analytics
+       |
+       v
+Visualisation
+       |
+       v
+Business Insight
+       |
+       v
+Decision Support
+```
+
+The software exists to support this analytical process.
+
+The long-term objective is to develop the project into a system capable of supporting:
+
+### Descriptive Analytics
+
+**What happened?**
+
+Examples:
+
+- attendance
+- ticket sales
+- audience size
+- repeat attendance
+
+### Diagnostic Analytics
+
+**Why did it happen?**
+
+Examples:
+
+- event comparisons
+- audience overlap
+- retention patterns
+- category relationships
+
+### Predictive Analytics
+
+**What is likely to happen?**
+
+Future examples:
+
+- attendance forecasting
+- customer churn
+- demand forecasting
+- revenue forecasting
+
+### Prescriptive Analytics
+
+**What should we do?**
+
+Future examples:
+
+- campaign targeting
+- event recommendations
+- audience selection
+- marketing optimisation
+
+---
+
+# Why the Project Is Being Rebuilt
+
+The existing Java application works, but its architecture reflects how the project developed.
+
+It started as a small operational utility.
+
+New requirements were added as new questions emerged.
+
+Eventually, ingestion, analytics, HTTP handling, reporting and presentation logic accumulated inside a large Java application.
+
+That has created a valuable engineering problem of its own:
+
+> How do I take a working prototype and redesign it as a maintainable data and software platform?
+
+The next phase of EventIntelligence addresses exactly that problem.
+
+I am rebuilding the project incrementally rather than discarding the original implementation.
+
+The existing Java prototype provides the **baseline behaviour and analytical requirements** for the new system.
+
+---
+
+# Modernisation Roadmap
+
+The technologies below represent the **planned evolution** of EventIntelligence.
+
+They are not presented as technologies already implemented in the current prototype.
+
+---
+
+## Phase 1 — Refactor and Requirements Analysis
+
+Before changing frameworks, the current application will be analysed and documented.
+
+This includes:
+
+- identifying business requirements
+- documenting current functionality
+- identifying analytical requirements
+- separating business rules from implementation details
+- defining entities and relationships
+- documenting data quality rules
+- defining measurable KPIs
+- identifying technical debt
+
+This creates a clear baseline for the rebuild.
+
+---
+
+# Phase 2 — Spring Boot Backend
+
+The Java application will be migrated to **Spring Boot**.
+
+The purpose of introducing Spring Boot is not simply to add another framework.
+
+The goal is to separate responsibilities currently concentrated in the prototype.
+
+The planned backend will introduce components such as:
+
+```text
+controller/
+service/
+repository/
+model/
+dto/
+analytics/
+ingestion/
+validation/
+exception/
+config/
+```
+
+The Spring Boot application will expose REST APIs that can be consumed independently by analytical and presentation tools.
+
+This phase will also introduce:
+
+- dependency injection
+- validation
+- exception handling
+- service boundaries
+- API design
+- automated testing
+- configuration management
+
+---
+
+# Phase 3 — Relational Database
+
+CSV files are useful as source data but are not an appropriate long-term operational data store.
+
+The next architecture will therefore introduce a relational database.
+
+The database design will model concepts such as:
+
+```text
+Customer
+Event
+EventCategory
+Booking
+Ticket
+Attendance
+Venue
+```
+
+The work will include:
+
+- requirements analysis
+- conceptual data modelling
+- ERD development
+- normalisation
+- primary and foreign keys
+- constraints
+- indexes
+- SQL queries
+- views
+- transactions
+- data migration
+
+The objective is to create a reliable analytical foundation rather than simply transferring CSV files into database tables.
+
+---
+
+# Phase 4 — Data Engineering Pipeline
+
+The existing Java CSV-processing logic will evolve into a more explicit data pipeline.
+
+Conceptually:
+
+```text
+Raw Event Data
+      |
+      v
+    BRONZE
+Original source data
+      |
+      v
+    SILVER
+Cleaned and standardised data
+      |
+      v
+     GOLD
+Analysis-ready datasets
+```
+
+The pipeline will focus on:
+
+- ingestion
+- validation
+- cleaning
+- standardisation
+- deduplication
+- transformation
+- enrichment
+- quality checks
+- reproducibility
+
+This will allow the same analytical process to be repeated as new event data becomes available.
+
+---
+
+# Phase 5 — Python and Pandas
+
+Once the operational data model and ingestion pipeline are established, **Python** will become an additional analytical layer.
+
+Python will not replace the Java backend.
+
+Instead, the two technologies will serve different purposes.
+
+### Java / Spring Boot
+
+Responsible for:
+
+- application logic
+- APIs
+- domain rules
+- data access
+- operational workflows
+
+### Python
+
+Responsible for:
+
+- exploratory data analysis
+- statistical analysis
+- analytical experimentation
+- modelling
+- data science workflows
+
+### Pandas
+
+Pandas will be used for:
+
+- dataframe manipulation
+- data cleaning
+- grouping
+- aggregation
+- joining datasets
+- exploratory analysis
+- feature preparation
+- analytical validation
+
+This also creates an opportunity to compare analytical results from the existing Java implementation with equivalent Python/Pandas analysis.
+
+---
+
+# Phase 6 — Power BI
+
+**Power BI** will provide the business intelligence layer.
+
+Instead of embedding every visualisation directly inside application code, curated datasets will be exposed to Power BI.
+
+Planned dashboards include:
+
+### Executive Dashboard
+
+- total events
+- attendance
+- revenue
+- customer growth
+- repeat attendance
+- retention
+
+### Audience Dashboard
+
+- unique customers
+- new vs returning customers
+- attendance frequency
+- customer segments
+- cross-category audiences
+
+### Event Performance Dashboard
+
+- event comparisons
+- category performance
+- attendance trends
+- revenue trends
+- audience retention
+
+### Marketing Dashboard
+
+- audience reach
+- customer segments
+- campaign populations
+- inactive customers
+- cross-sell opportunities
+
+Power BI will therefore answer the business intelligence side of the project while Python and Java provide the underlying processing and analytical capabilities.
+
+---
+
+# Phase 7 — React Frontend
+
+A **React** frontend is planned for operational users who need to interact directly with EventIntelligence.
+
+React will consume the Spring Boot REST API.
+
+Potential functionality includes:
+
+- customer search
+- event search
+- event analytics
+- audience exploration
+- communication-list generation
+- data imports
+- analytical reports
+- filters
+- interactive charts
+- administrative functionality
+
+The distinction is important:
+
+**Power BI** will primarily support analytical reporting and business intelligence.
+
+**React** will support application workflows and interactive operational functionality.
+
+---
+
+# Target Architecture
+
+The planned architecture is:
+
+```text
+                 Ticketing / Event Data
+                          |
+                          v
+                   Data Ingestion
+                          |
+                          v
+              Cleaning & Transformation
+                          |
+                          v
+                 Relational Database
+                          |
+             +------------+-------------+
+             |                          |
+             v                          v
+      Spring Boot API             Python / Pandas
+             |                          |
+             |                    Data Analysis
+             |                          |
+             +------------+-------------+
+                          |
+                    Curated Data
+                    /           \
+                   v             v
+              React App       Power BI
+                   \             /
+                    \           /
+                     v         v
+                    Decision Support
+```
+
+---
+
+# Future Predictive Analytics
+
+Machine learning will only be introduced after the descriptive and diagnostic analytical foundations are reliable.
+
+Potential future questions include:
+
+- Which customers are likely to stop attending?
+- How many tickets is an event likely to sell?
+- Which customers are most likely to attend a particular event?
+- Which event categories are likely to perform well?
+- What revenue can be expected from an upcoming event?
+- Which audiences should receive a campaign?
+
+Potential techniques include:
+
+- regression
+- classification
+- clustering
+- recommendation systems
+- time-series forecasting
+
+The objective is not to add AI for its own sake.
+
+Predictive techniques will only be introduced where they answer a meaningful business question supported by sufficient data.
+
+---
+
+# What I Am Learning Through This Project
+
+EventIntelligence is also a practical learning project.
+
+Instead of learning technologies independently, I am using one real business problem to understand how different disciplines connect.
+
+The project allows me to develop practical knowledge of:
+
+- Java
+- object-oriented programming
+- algorithms and data structures
+- SQL
+- relational database design
+- Spring Boot
+- REST APIs
+- data engineering
+- Python
+- Pandas
+- statistical analysis
+- exploratory data analysis
+- Power BI
+- business intelligence
+- React
+- software architecture
+- testing
+- Git and GitHub
+
+More importantly, it requires understanding **why and where each technology belongs in a system**.
+
+---
+
+# Engineering Approach
+
+The modernisation of EventIntelligence will follow an incremental Software Development Life Cycle.
+
+```text
+1. Understand the business problem
+2. Analyse the existing prototype
+3. Define requirements
+4. Profile and understand the data
+5. Design the domain model
+6. Design the database
+7. Refactor the backend
+8. Build the data pipeline
+9. Validate the analytics
+10. Build BI dashboards
+11. Build operational interfaces
+12. Test
+13. Deploy
+14. Measure and improve
+```
+
+Each major architectural decision will be documented as the project evolves.
+
+---
+
+# Current vs Planned Technology
+
+| Area | Current | Planned |
+|---|---|---|
+| Core application | Java | Java + Spring Boot |
+| Source data | CSV | CSV ingestion + relational database |
+| Data processing | Java | Java + Python |
+| Data analysis | Java algorithms | Python + Pandas + Java analytics |
+| Statistical analysis | Java implementation | Python analytical ecosystem |
+| Backend | Embedded Java HTTP server | Spring Boot REST API |
+| Operational UI | Browser-based HTML generated by Java | React |
+| Business intelligence | Prototype analytical views | Power BI |
+| Data persistence | Local CSV files | Relational database |
+| Predictive analytics | Not implemented | Python / ML |
+| Public data | No real customer data | Synthetic demonstration dataset |
+
+---
+
+# Data Privacy
+
+The project was developed from genuine operational event data.
+
+That creates a responsibility to protect the people represented in the dataset.
+
+Real customer information is therefore **never intentionally committed to this public repository**.
+
+The following are excluded:
+
+```text
+app_data/
+contacts_with_shows.csv
+excluded_emails.txt
+.env
+.env.*
+```
+
+The public version of the project will eventually contain synthetic data designed to reproduce the analytical characteristics needed to demonstrate the system without exposing identifiable customer information.
+
+---
+
+# Repository Status
+
+**Current stage:** Working Java analytics prototype / architecture modernisation.
+
+Current source:
+
+```text
+src/
+├── Main.java
+└── TicketBuyerWebApp.java
+```
+
+The large `TicketBuyerWebApp.java` file represents the historical growth of the prototype.
+
+It is not presented as the desired final architecture.
+
+The repository will document the process of transforming that prototype into a modular data analysis and decision-support platform.
+
+---
+
+# Project Direction
+
+EventIntelligence began with a very small operational question:
+
+> How can I stop manually extracting customer contact information from event CSV files?
+
+That became:
+
+> What can I learn when I combine the data from all these events?
+
+And that has now become:
+
+> How can software engineering, data engineering and data analysis transform operational event data into useful intelligence for real business decisions?
+
+That progression is the foundation of the project.
+
+The goal is not merely to build another event-management application.
+
+The goal is to build a system that demonstrates the complete journey from:
+
+**raw operational data → reliable information → analysis → insight → decision support.**
 
 ---
 
@@ -965,10 +979,15 @@ Special acknowledgement is given to **The One Room Music & Comedy Club**, whose 
 
 ## Masego Madisha
 
-**BCom Computer Science and Information Systems**
+BCom Computer Science and Information Systems
 
-Software Engineer • Business Analyst • Data Engineer • Computational Analytics Researcher
+Interests:
 
-With multidisciplinary experience spanning software engineering, psychology, business analysis, audience engagement, artist relations, and live event operations, this project represents the intersection of technology, research, and practical industry experience.
+- Software Engineering
+- Data Engineering
+- Data Analysis
+- Business Intelligence
+- Backend Development
+- Applied Algorithms
 
----
+EventIntelligence combines my software development studies with practical experience working with events, audiences, marketing and operational data in South Africa's live entertainment industry.
